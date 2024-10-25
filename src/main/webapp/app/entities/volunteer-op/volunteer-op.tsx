@@ -93,12 +93,7 @@ export const VolunteerOP = () => {
     <div className="min-h-screen bg-cover bg-center relative pb-16" style={{ backgroundImage: `url(${bgImg})` }}>
       <div className="container mx-auto pt-2">
         <div className="mt-5 float-end">
-          <Link
-            to="/volunteer-op/new"
-            className="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-500 jh-create-entity"
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-          >
+          <Link to="/volunteer-op/new" className="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-500">
             Create Volunteer Opportunity
           </Link>
         </div>
@@ -131,45 +126,54 @@ export const VolunteerOP = () => {
             </tr>
           </thead>
           <tbody>
-            {volunteerOPList.map((volunteerOP, i) => (
-              <tr key={volunteerOP.id} className="even:bg-gray-100">
-                <td className="px-2 py-3 text-center">{i + 1}</td>
-                <td className="px-2 py-3">{volunteerOP.volunteerName}</td>
-                <td className="px-2 py-3">
-                  {new Date(volunteerOP.dateAndTime)
-                    .toLocaleString('en-US', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true,
-                    })
-                    .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                </td>
-                <td className="px-2 py-3">{volunteerOP.location}</td>
-                <td className="px-2 py-3">{volunteerOP.timeDuration}</td>
-                <td className="px-2 py-3">{volunteerOP.description}</td>
-                <td className="px-2 py-3">{volunteerOP.member}</td>
-                <td className="px-2 py-3">{volunteerOP.volunteerOpCoordinator}</td>
-                <td className="py-2 px-3 text-center space-x-4">
-                  <Link
-                    to={`/volunteer-op/${volunteerOP.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                    className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() =>
-                      (window.location.href = `/volunteer-op/${volunteerOP.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                    }
-                    className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 ml-4"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {volunteerOPList && volunteerOPList.length > 0
+              ? volunteerOPList.map((volunteerOP, i) => (
+                  <tr key={volunteerOP.id} className="even:bg-gray-100">
+                    <td className="px-2 py-3 text-center">{i + 1}</td>
+                    <td className="px-2 py-3">{volunteerOP.volunteerName}</td>
+                    <td className="px-2 py-3">
+                      {new Date(volunteerOP.dateAndTime)
+                        .toLocaleString('en-US', {
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          hour12: true,
+                        })
+                        .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                    </td>
+                    <td className="px-2 py-3">{volunteerOP.location}</td>
+                    <td className="px-2 py-3">{volunteerOP.timeDuration}</td>
+                    <td className="px-2 py-3">{volunteerOP.description}</td>
+                    <td className="px-2 py-3">{volunteerOP.member}</td>
+                    <td className="px-2 py-3">{volunteerOP.volunteerOpCoordinator}</td>
+                    <td className="py-2 px-3 text-center space-x-4">
+                      <Link
+                        to={`/volunteer-op/${volunteerOP.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                        className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        onClick={() =>
+                          (window.location.href = `/volunteer-op/${volunteerOP.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                        }
+                        className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 ml-4"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              : !loading && (
+                  <tr>
+                    <td colSpan={9} className="alert alert-warning text-center">
+                      {' '}
+                      Not found data
+                    </td>
+                  </tr>
+                )}
           </tbody>
         </table>
       </div>

@@ -2,14 +2,10 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
-
-import News from './news';
 import NewsDetail from './news-detail';
 import NewsUpdate from './news-update';
 import NewsDeleteDialog from './news-delete-dialog';
 import { useAppSelector } from 'app/config/store';
-import Donation from 'app/entities/donation/donation';
-import Donationuser from 'app/entities/donation/donation-user';
 import UserNews from 'app/entities/news/user-news';
 
 const NewsRoutes = () => (

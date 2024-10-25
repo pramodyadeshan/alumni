@@ -5,11 +5,11 @@ import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 
 import ReportPage from 'app/entities/report/report';
 import Monitor from 'app/entities/monitor';
-import VolunteerOP from "app/entities/volunteer-op/volunteer-op";
-import News from "app/entities/news";
-import Job from "app/entities/job";
-import Donation from "app/entities/donation";
-import Event from "app/entities/event/event";
+import VolunteerOP from 'app/entities/volunteer-op';
+import News from 'app/entities/news';
+import Job from 'app/entities/job';
+import Donation from 'app/entities/donation';
+import Event from 'app/entities/event/event';
 
 export default () => {
   return (
