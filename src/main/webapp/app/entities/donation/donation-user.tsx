@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Modal, ModalBody, ModalHeader} from 'reactstrap';
-import {useAppDispatch, useAppSelector} from 'app/config/store';
-import {getEntities} from 'app/entities/donation/donation.reducer';
+import React, { useEffect, useState } from 'react';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getEntities } from 'app/entities/donation/donation.reducer';
 
 // Define the Donation interface
 interface Donation {
@@ -99,6 +99,16 @@ const DonationList: React.FC = () => {
                   onClick={() => handleDonationSelect(donation)}
                 >
                   View Details
+                </button>
+
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  /*onClick={() => {
+                    handleDonationSelect(donation);
+                    window.open('./payhere.html'); // Opens in a new tab
+                  }}*/
+                >
+                  Pay Now
                 </button>
               </div>
             </div>
