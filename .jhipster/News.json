@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240827094920"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "authorName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "publishDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "coverArea",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "group",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "expireDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fileUpload",
+      "fieldType": "String"
+    }
+  ],
+  "name": "News",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no"
+}

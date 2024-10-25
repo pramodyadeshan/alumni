@@ -1,0 +1,94 @@
+entity User {
+    login String required,
+    password String required,
+    firstName String,
+    lastName String,
+    email String required,
+    activated Boolean required,
+    langKey String,
+    activationKey String,
+    resetKey String,
+    resetDate Instant,
+    // Add the file upload field here
+    profilePicture String // This will store the file path or URL for the profile picture
+}
+
+entity Event {
+    eventName String
+    dateAndTime String
+    location String
+    eventType String
+    description String
+    targetAudience String
+    eventCoordinator String
+    status Boolean
+}
+
+entity Donation {
+	donationName String
+    contactDetails String
+    billingAddress String
+    amount String
+    description String
+    donationType String
+    dateAndTime String
+    email String
+}
+
+entity Job {
+	jobName String
+    companyName String
+    location String
+    salaryDetails String
+    jobDescription String
+    expireDate String
+    jobApplyMethod String
+    fileUpload String
+    email String
+}
+
+entity News {
+	authorName String
+    title String
+    publishDate String
+    coverArea String
+    group String
+    expireDate String
+    fileUpload String
+
+}
+
+entity VolunteerOP {
+	volunteerName String
+    dateAndTime String
+    location String
+    timeDuration String
+    description String
+    member String
+    volunteerOpCoordinator String
+}
+
+
+enum Eventtype {
+    GETTOGETHER, FAIRWELL, CHARITY
+}
+
+enum Jobapplymethod {
+    EMAIL, PHONECALLS, DIRECTCONTACT
+}
+
+enum Donationtype {
+    ONLINE,MATERIAL,CASH,CHECK
+}
+
+enum Reportcategory {
+    USERDETAILS,DONATIONDETAILS,EVENTDETAILS,JOBBOARDDETAILS,NEWSDETAILS,VOLUNTEEROPPRTUNITIESDETAILS
+}
+
+// Set pagination options
+paginate Event,Donation,Job,News,VolunteerOP with infinite-scroll
+paginate Event,Donation,Job,News,VolunteerOP with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+

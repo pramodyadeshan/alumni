@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20240827094921"
+  },
+  "applications": "*",
+  "entityTableName": "volunteer_op",
+  "fields": [
+    {
+      "fieldName": "volunteerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateAndTime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "timeDuration",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "member",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "volunteerOpCoordinator",
+      "fieldType": "String"
+    }
+  ],
+  "name": "VolunteerOP",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no"
+}

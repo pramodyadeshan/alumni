@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-1">
+        <dropForeignKeyConstraint baseTableName="jhi_user_authority" constraintName="fk_authority_name"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-2">
+        <dropForeignKeyConstraint baseTableName="jhi_user_authority" constraintName="fk_user_id"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-3">
+        <dropUniqueConstraint constraintName="ux_user_email" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-4">
+        <dropUniqueConstraint constraintName="ux_user_login" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-5">
+        <dropTable tableName="college"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-6">
+        <dropTable tableName="college_mates"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-7">
+        <dropTable tableName="donation"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-8">
+        <dropTable tableName="event"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-9">
+        <dropTable tableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-10">
+        <dropTable tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-11">
+        <dropTable tableName="jhi_user_authority"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-12">
+        <dropTable tableName="job"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-13">
+        <dropTable tableName="news"/>
+    </changeSet>
+    <changeSet author="Pramodya Deshan (generated)" id="1729794153442-14">
+        <dropTable tableName="volunteer_op"/>
+    </changeSet>
+</databaseChangeLog>

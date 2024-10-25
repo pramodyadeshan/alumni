@@ -1,0 +1,44 @@
+{
+  "annotations": {
+    "changelogDate": "20240820144504"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "eventName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateAndTime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eventType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "targetAudience",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "eventCoordinator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Boolean"
+    }
+  ],
+  "name": "Event",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no"
+}
