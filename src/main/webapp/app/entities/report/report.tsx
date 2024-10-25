@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from 'app/config/store';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntities as getEventEntities } from 'app/entities/event/event.reducer';
 import { getEntities as getDonationEntities } from 'app/entities/donation/donation.reducer';
 import { getEntities as getJobEntities } from 'app/entities/job/job.reducer';
 import { getEntities as getNewsEntities } from 'app/entities/news/news.reducer';
 import { getEntities as getVoEntities } from 'app/entities/volunteer-op/volunteer-op.reducer';
 //import { getUsersAsAdmin } from 'app/modules/administration/user-management/user-management.reducer';
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export const ReportPage = () => {
   const dispatch = useAppDispatch();
@@ -58,7 +58,7 @@ export const ReportPage = () => {
     dispatch(getVoEntities({}));
   }, [dispatch]);
 
- /* // Fetch user entities
+  /* // Fetch user entities
   useEffect(() => {
     dispatch(getUsersAsAdmin({}));
   }, [dispatch]);*/
@@ -76,15 +76,14 @@ export const ReportPage = () => {
         const eventDate = new Date(item.dateAndTime).toISOString().split('T')[0];
 
         // Check if the eventDate falls within the specified range
-        return (
-          (formattedSelectedDate > currentDate) ? (eventDate >= currentDate && eventDate <= formattedSelectedDate) : (eventDate <= currentDate && eventDate >= formattedSelectedDate)
-        );
+        return formattedSelectedDate > currentDate
+          ? eventDate >= currentDate && eventDate <= formattedSelectedDate
+          : eventDate <= currentDate && eventDate >= formattedSelectedDate;
       });
 
       // Set the filtered report data
       setReportData(filteredData);
-    }else
-    if (type === 'donation') {
+    } else if (type === 'donation') {
       // Get the current date in 'YYYY-MM-DD' format
       const currentDate = new Date().toISOString().split('T')[0];
 
@@ -96,15 +95,14 @@ export const ReportPage = () => {
         const donDate = new Date(item.dateAndTime).toISOString().split('T')[0];
 
         // Check if the eventDate falls within the specified range
-        return (
-          (formattedSelectedDate > currentDate) ? (donDate >= currentDate && donDate <= formattedSelectedDate) : (donDate <= currentDate && donDate >= formattedSelectedDate)
-        );
+        return formattedSelectedDate > currentDate
+          ? donDate >= currentDate && donDate <= formattedSelectedDate
+          : donDate <= currentDate && donDate >= formattedSelectedDate;
       });
 
       // Set the filtered report data
       setReportData(filteredData);
-    }else
-    if (type === 'job') {
+    } else if (type === 'job') {
       // Get the current date in 'YYYY-MM-DD' format
       const currentDate = new Date().toISOString().split('T')[0];
 
@@ -116,15 +114,14 @@ export const ReportPage = () => {
         const jobDate = new Date(item.expireDate).toISOString().split('T')[0];
 
         // Check if the eventDate falls within the specified range
-        return (
-          (formattedSelectedDate > currentDate) ? (jobDate >= currentDate && jobDate <= formattedSelectedDate) : (jobDate <= currentDate && jobDate >= formattedSelectedDate)
-        );
+        return formattedSelectedDate > currentDate
+          ? jobDate >= currentDate && jobDate <= formattedSelectedDate
+          : jobDate <= currentDate && jobDate >= formattedSelectedDate;
       });
 
       // Set the filtered report data
       setReportData(filteredData);
-    }else
-    if (type === 'news') {
+    } else if (type === 'news') {
       // Get the current date in 'YYYY-MM-DD' format
       const currentDate = new Date().toISOString().split('T')[0];
 
@@ -136,15 +133,14 @@ export const ReportPage = () => {
         const pubDate = new Date(item.publishDate).toISOString().split('T')[0];
 
         // Check if the eventDate falls within the specified range
-        return (
-          (formattedSelectedDate > currentDate) ? (pubDate >= currentDate && pubDate <= formattedSelectedDate) : (pubDate <= currentDate && pubDate >= formattedSelectedDate)
-        );
+        return formattedSelectedDate > currentDate
+          ? pubDate >= currentDate && pubDate <= formattedSelectedDate
+          : pubDate <= currentDate && pubDate >= formattedSelectedDate;
       });
 
       // Set the filtered report data
       setReportData(filteredData);
-    }else
-    if (type === 'vo') {
+    } else if (type === 'vo') {
       // Get the current date in 'YYYY-MM-DD' format
       const currentDate = new Date().toISOString().split('T')[0];
 
@@ -156,14 +152,14 @@ export const ReportPage = () => {
         const voDate = new Date(item.dateAndTime).toISOString().split('T')[0];
 
         // Check if the eventDate falls within the specified range
-        return (
-          (formattedSelectedDate > currentDate) ? (voDate >= currentDate && voDate <= formattedSelectedDate) : (voDate <= currentDate && voDate >= formattedSelectedDate)
-        );
+        return formattedSelectedDate > currentDate
+          ? voDate >= currentDate && voDate <= formattedSelectedDate
+          : voDate <= currentDate && voDate >= formattedSelectedDate;
       });
 
       // Set the filtered report data
       setReportData(filteredData);
-    }/*else
+    } /*else
     if (type === 'user') {
       const filteredData = userEntities.filter(item => {
         return item.activated == 1;
@@ -183,7 +179,7 @@ export const ReportPage = () => {
     input.querySelector('h3').style.fontSize = '30px'; // Set h3 font size to 30px
     input.querySelector('table').style.fontSize = '16px'; // Set table font size to 16px
 
-    html2canvas(input).then((canvas) => {
+    html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF();
       const imgWidth = 190;
@@ -260,506 +256,423 @@ export const ReportPage = () => {
             <h2 className="text-center text-3xl font-bold mb-4">{!showReport ? 'Report Category' : ''}</h2>
 
             {!showReport ? (
-            <div className="container max-w-lg">
-              <div className="bg-amber-100 shadow-md rounded-lg p-6">
-                <form onSubmit={handleSelect}>
-                  <div className="mb-3">
-                    <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="reportType">
-                      Report Type
-                    </label>
-                    <select
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                      id="reportType"
-                      value={reportType}
-                      onChange={e => setReportType(e.target.value)}
-                      required={true}
+              <div className="container max-w-lg">
+                <div className="bg-amber-100 shadow-md rounded-lg p-6">
+                  <form onSubmit={handleSelect}>
+                    <div className="mb-3">
+                      <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="reportType">
+                        Report Type
+                      </label>
+                      <select
+                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        id="reportType"
+                        value={reportType}
+                        onChange={e => setReportType(e.target.value)}
+                        required={true}
+                      >
+                        <option value="">Select Report Type</option>
+                        {/*<option value="user">User Details</option>*/}
+                        <option value="event">Event Details</option>
+                        <option value="donation">Donation Details</option>
+                        <option value="job">Job Details</option>
+                        <option value="news">Alumni News Details</option>
+                        <option value="vo">Volunteer Opportunities</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-3">
+                      <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateTime">
+                        Date
+                      </label>
+                      <input
+                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        id="dateTime"
+                        type="date"
+                        value={date}
+                        onChange={e => setDate(e.target.value)}
+                        required={true}
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-4 mb-2"
                     >
-                      <option value="">Select Report Type</option>
-                      {/*<option value="user">User Details</option>*/}
-                      <option value="event">Event Details</option>
-                      <option value="donation">Donation Details</option>
-                      <option value="job">Job Details</option>
-                      <option value="news">Alumni News Details</option>
-                      <option value="vo">Volunteer Opportunities</option>
-                    </select>
-                  </div>
+                      Select
+                    </button>
 
-                  <div className="mb-3">
-                    <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateTime">
-                      Date
-                    </label>
-                    <input
-                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                      id="dateTime"
-                      type="date"
-                      value={date}
-                      onChange={e => setDate(e.target.value)}
-                      required={true}
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-4 mb-2"
-                  >
-                    Select
-                  </button>
-
-                  <button
-                    type="button"
-                    className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
-                    onClick={() => {
-                      setReportType('');
-                      setDate('');
-                    }}
-                  >
-                    Cancel
-                  </button>
-                </form>
+                    <button
+                      type="button"
+                      className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
+                      onClick={() => {
+                        setReportType('');
+                        setDate('');
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </form>
+                </div>
               </div>
-            </div>
             ) : (
-              <div className="bg-white shadow-md rounded-lg p-6 mx-auto" style={{width: '100%'}}>
+              <div className="bg-white shadow-md rounded-lg p-6 mx-auto" style={{ width: '100%' }}>
                 <div id="exportReport">
                   <h3 className="text-2xl font-semibold mb-4 text-capitalize">{reportType} Report Results</h3>
-                  <p className="mb-2">Report Type: <strong className="text-capitalize px-3">{reportType}</strong></p>
-                  <p className="mb-4">From Current Date: <strong
-                    className="px-3">{new Date().toISOString().split('T')[0]}</strong> To Selected Date: <strong
-                    className="px-3">{date}</strong></p>
+                  <p className="mb-2">
+                    Report Type: <strong className="text-capitalize px-3">{reportType}</strong>
+                  </p>
+                  <p className="mb-4">
+                    From Current Date: <strong className="px-3">{new Date().toISOString().split('T')[0]}</strong> To Selected Date:{' '}
+                    <strong className="px-3">{date}</strong>
+                  </p>
                   <table className="min-w-full divide-y divide-gray-200 text-xl">
                     <thead className="bg-gray-50">
-                    {(reportType === 'event') ? (
-                      <tr>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Date and Time
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Event Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Location
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Event Type
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Description
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Target Audience
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Event Coordinator
-                        </th>
-                      </tr>
-                    ) : (reportType === 'donation') ? (
-                      <tr>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Date and Time
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Donation Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Contact Details
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Billing Address
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Amount($)
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Description
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Donation Type
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Email
-                        </th>
-                      </tr>
-                    ) : (reportType === 'job') ? (
-                      <tr>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Expire Date
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Job Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Company Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Location
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Email
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Salary Details($)
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Job Description
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Job Apply Method
-                        </th>
-                      </tr>
-                    ) : (reportType === 'news') ? (
-                      <tr>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Publish Date
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Title
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Author Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Cover Area
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Group
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Expire Date
-                        </th>
-                      </tr>
-                    ): (reportType === 'vo') ? (
-                      <tr>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Date & Time
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Volunteer Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Location
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Time Duration(h)
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Description
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Member(s)
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Volunteer Coordinator
-                        </th>
-                      </tr>
-                    ) : (reportType === 'user') ? (
-                      <tr>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          First Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Last Name
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Email
-                        </th>
-                        <th scope="col"
-                            className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-                          Status
-                        </th>
-                      </tr>
-                    ) : null}
+                      {reportType === 'event' ? (
+                        <tr>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Date and Time
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Event Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Location
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Event Type
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Description
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Target Audience
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Event Coordinator
+                          </th>
+                        </tr>
+                      ) : reportType === 'donation' ? (
+                        <tr>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Date and Time
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Donation Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Contact Details
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Billing Address
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Email
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Amount($)
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Description
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Donation Type
+                          </th>
+                        </tr>
+                      ) : reportType === 'job' ? (
+                        <tr>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Expire Date
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Job Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Company Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Location
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Email
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Salary Details($)
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Job Description
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Job Apply Method
+                          </th>
+                        </tr>
+                      ) : reportType === 'news' ? (
+                        <tr>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Publish Date
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Title
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Author Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Cover Area
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Group
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Expire Date
+                          </th>
+                        </tr>
+                      ) : reportType === 'vo' ? (
+                        <tr>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Date & Time
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Volunteer Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Location
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Time Duration(h)
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Description
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Member(s)
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Volunteer Coordinator
+                          </th>
+                        </tr>
+                      ) : reportType === 'user' ? (
+                        <tr>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            First Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Last Name
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Email
+                          </th>
+                          <th scope="col" className="px-2 py-2 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
+                            Status
+                          </th>
+                        </tr>
+                      ) : null}
                     </thead>
                     <tbody>
-                    {reportType === 'event' ? (
-                      reportData.length === 0 ? (
-                        <tr>
-                        <td colSpan={7} className="text-center"> No event data found</td>
-                        </tr>
-                      ) : (
-                        reportData.map(item => (
-                          <tr key={item.id}>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {new Date(item.dateAndTime)
-                                .toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  hour12: true,
-                                })
-                                .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.eventName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.location}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.eventType}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.description}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.targetAudience}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.eventCoordinator}
+                      {reportType === 'event' ? (
+                        reportData.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="text-center">
+                              {' '}
+                              No event data found
                             </td>
                           </tr>
-                        ))
-                      )
-                    ) : (reportType === 'donation') ? (
-                      reportData.length === 0 ? (
-                        <tr>
-                          <td colSpan={7} className="text-center"> No donation data found</td>
-                        </tr>
-                      ) : (
-                        reportData.map(item => (
-                          <tr key={item.id}>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {new Date(item.dateAndTime)
-                                .toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  hour12: true,
-                                })
-                                .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.donationName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.contactDetails}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.billingAddress}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.email}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.amount}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.description}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.donationType}
+                        ) : (
+                          reportData.map(item => (
+                            <tr key={item.id}>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {new Date(item.dateAndTime)
+                                  .toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                  })
+                                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.eventName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.location}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.eventType}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.description}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.targetAudience}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.eventCoordinator}</td>
+                            </tr>
+                          ))
+                        )
+                      ) : reportType === 'donation' ? (
+                        reportData.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="text-center">
+                              {' '}
+                              No donation data found
                             </td>
                           </tr>
-                        ))
-                      )
-                    ) : (reportType === 'job') ? (
-                      reportData.length === 0 ? (
-                        <tr>
-                          <td colSpan={7} className="text-center"> No job data found</td>
-                        </tr>
-                      ) : (
-                        reportData.map(item => (
-                          <tr key={item.id}>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {new Date(item.expireDate)
-                                .toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  hour12: true,
-                                })
-                                .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.jobName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.companyName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.location}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.email}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {Number(item.salaryDetails).toFixed(2)}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.jobDescription}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.jobApplyMethod}
+                        ) : (
+                          reportData.map(item => (
+                            <tr key={item.id}>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {new Date(item.dateAndTime)
+                                  .toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                  })
+                                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.donationName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.contactDetails}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.billingAddress}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.email}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {Number(item.amount).toFixed(2)}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.description}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.donationType}</td>
+                            </tr>
+                          ))
+                        )
+                      ) : reportType === 'job' ? (
+                        reportData.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="text-center">
+                              {' '}
+                              No job data found
                             </td>
                           </tr>
-                        ))
-                      )
-                    ) : (reportType === 'news') ? (
-                      reportData.length === 0 ? (
-                        <tr>
-                          <td colSpan={7} className="text-center"> No news data found</td>
-                        </tr>
-                      ) : (
-                        reportData.map(item => (
-                          <tr key={item.id}>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {new Date(item.publishDate)
-                                .toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  hour12: true,
-                                })
-                                .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.title}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.authorName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.coverArea}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.group}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {new Date(item.expireDate)
-                                .toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  hour12: true,
-                                })
-                                .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                        ) : (
+                          reportData.map(item => (
+                            <tr key={item.id}>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {new Date(item.expireDate)
+                                  .toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                  })
+                                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.jobName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.companyName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.location}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.email}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {Number(item.salaryDetails).toFixed(2)}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.jobDescription}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.jobApplyMethod}</td>
+                            </tr>
+                          ))
+                        )
+                      ) : reportType === 'news' ? (
+                        reportData.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="text-center">
+                              {' '}
+                              No news data found
                             </td>
                           </tr>
-                        ))
-                      )
-                    ) : (reportType === 'vo') ? (
-                      reportData.length === 0 ? (
-                        <tr>
-                          <td colSpan={7} className="text-center"> No volunteer oppertunity data found</td>
-                        </tr>
-                      ) : (
-                        reportData.map(item => (
-                          <tr key={item.id}>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {new Date(item.dateAndTime)
-                                .toLocaleString('en-US', {
-                                  year: 'numeric',
-                                  month: '2-digit',
-                                  day: '2-digit',
-                                  hour: '2-digit',
-                                  minute: '2-digit',
-                                  hour12: true,
-                                })
-                                .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.volunteerName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.location}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.timeDuration}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.description}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.member}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.volunteerOpCoordinator}
-                            </td>
-                          </tr>
-                        ))
-                      )
-                    ) : (reportType === 'user') ? (
-                      reportData.length === 0 ? (
-                        <tr>
-                          <td colSpan={7} className="text-center"> No user data found</td>
-                        </tr>
-                      ) : (
-                        reportData.map(item => (
-                          <tr key={item.id}>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.firstName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.lastName}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.email}
-                            </td>
-                            <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
-                              {item.activated == 1 ? 'Active' : 'Inactive'}
+                        ) : (
+                          reportData.map(item => (
+                            <tr key={item.id}>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {new Date(item.publishDate)
+                                  .toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                  })
+                                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.title}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.authorName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.coverArea}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.group}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {new Date(item.expireDate)
+                                  .toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                  })
+                                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                              </td>
+                            </tr>
+                          ))
+                        )
+                      ) : reportType === 'vo' ? (
+                        reportData.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="text-center">
+                              {' '}
+                              No volunteer oppertunity data found
                             </td>
                           </tr>
-                        ))
-                      )
-                    ) : null}
+                        ) : (
+                          reportData.map(item => (
+                            <tr key={item.id}>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {new Date(item.dateAndTime)
+                                  .toLocaleString('en-US', {
+                                    year: 'numeric',
+                                    month: '2-digit',
+                                    day: '2-digit',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: true,
+                                  })
+                                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                              </td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.volunteerName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.location}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.timeDuration}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.description}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.member}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {item.volunteerOpCoordinator}
+                              </td>
+                            </tr>
+                          ))
+                        )
+                      ) : reportType === 'user' ? (
+                        reportData.length === 0 ? (
+                          <tr>
+                            <td colSpan={7} className="text-center">
+                              {' '}
+                              No user data found
+                            </td>
+                          </tr>
+                        ) : (
+                          reportData.map(item => (
+                            <tr key={item.id}>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.firstName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.lastName}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">{item.email}</td>
+                              <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {item.activated == 1 ? 'Active' : 'Inactive'}
+                              </td>
+                            </tr>
+                          ))
+                        )
+                      ) : null}
                     </tbody>
                   </table>
                 </div>
 
-
                 <div className="flex justify-between mt-4">
-                  <button
-                    className="bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 px-2"
-                    onClick={() => setShowReport(false)}
-                  >
+                  <button className="bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 px-2" onClick={() => setShowReport(false)}>
                     Back to Report Selection
                   </button>
 
@@ -771,16 +684,11 @@ export const ReportPage = () => {
                       Export to CSV
                     </button>*/}
 
-                    <button
-                      className="bg-green-600 text-white py-2 rounded-lg hover:bg-green-600 px-2"
-                      onClick={exportToPDF}
-                    >
+                    <button className="bg-green-600 text-white py-2 rounded-lg hover:bg-green-600 px-2" onClick={exportToPDF}>
                       Export as PDF
                     </button>
                   </div>
                 </div>
-
-
               </div>
             )}
           </div>
