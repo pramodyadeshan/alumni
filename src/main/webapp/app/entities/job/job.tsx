@@ -171,14 +171,12 @@ export const Job = () => {
                     >
                       Edit
                     </Link>
-                    <Button
-                      onClick={() =>
-                        (window.location.href = `/job/${job.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                      }
+                    <Link
+                      to={`/job/${job.id}/delete`}
                       className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600 ml-4 mt-2 text-sm sm:text-base sm:py-2 sm:px-4"
                     >
                       Delete
-                    </Button>
+                    </Link>
                   </td>
                 </tr>
               ))}
