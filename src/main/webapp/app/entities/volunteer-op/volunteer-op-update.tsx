@@ -63,12 +63,9 @@ export const VolunteerOPUpdate = () => {
 
   const defaultValues = () =>
     isNew
-      ? {
-          dateAndTime: displayDefaultDateTime(),
-        }
+      ? {}
       : {
           ...volunteerOPEntity,
-          dateAndTime: convertDateTimeFromServer(volunteerOPEntity.dateAndTime),
         };
 
   return (

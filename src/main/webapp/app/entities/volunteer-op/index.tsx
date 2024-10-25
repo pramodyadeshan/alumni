@@ -11,15 +11,21 @@ import { useAppSelector } from 'app/config/store';
 import Donation from 'app/entities/donation/donation';
 import Donationuser from 'app/entities/donation/donation-user';
 import VolunteerOPUsers from 'app/entities/volunteer-op/volunteer-op-users';
+import JobUsers from 'app/entities/job/job-users';
 
 const VolunteerOPRoutes = () => (
   <ErrorBoundaryRoutes>
     <Route
       index
       element={
-        useAppSelector(state => state.authentication.account).authorities.includes('ROLE_ADMIN') ? <VolunteerOP /> : <VolunteerOPUsers />
+        useAppSelector(state => state.authentication.account).authorities.includes('ROLE_ADMIN') ? (
+          <VolunteerOPUsers />
+        ) : (
+          <VolunteerOPUsers />
+        )
       }
     />
+    <Route path="users" element={<VolunteerOPUsers />} />
     <Route path="new" element={<VolunteerOPUpdate />} />
     <Route path=":id">
       <Route index element={<VolunteerOPDetail />} />

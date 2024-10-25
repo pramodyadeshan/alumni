@@ -12,6 +12,8 @@ interface Job {
   jobDescription: string;
   expireDate: string;
   jobApplyMethod: string;
+  fileUpload: string;
+  email: string;
 }
 const UpcomingJobPage: React.FC = () => {
   const jobList = useAppSelector(state => state.job.entities);

@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from 'app/config/store';
-import {Modal} from 'reactstrap';
-import {getEntities} from 'app/entities/event/event.reducer';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { Modal } from 'reactstrap';
+import { getEntities } from 'app/entities/event/event.reducer';
 import UpcomingJobPage from 'app/entities/job/monitor-job';
 import UpcomingNEWSPage from 'app/entities/news/monitor-news';
-import UpcomingVOPage from "app/entities/volunteer-op/monitor-vo";
+import UpcomingVOPage from 'app/entities/volunteer-op/monitor-vo';
+import UpcomingDonationPage from 'app/entities/donation/monitor-donation';
 
 // Define the Event interface
 interface Event {
@@ -64,6 +65,7 @@ const UpcomingEventPage: React.FC = () => {
                   .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}{' '}
                 | Location: {event.location}
               </p>
+              <p>{event.status}</p>
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
                 onClick={() => handleCardClick(event)}
@@ -136,6 +138,7 @@ export const Monitor = () => {
           <UpcomingJobPage />
           <UpcomingNEWSPage />
           <UpcomingVOPage />
+          <UpcomingDonationPage />
 
           <div className="flex justify-center mt-4 mb-4">
             <button

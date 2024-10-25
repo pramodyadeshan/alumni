@@ -11,6 +11,7 @@ interface News {
   coverArea: string;
   group: string;
   expireDate: string;
+  fileUpload: string;
 }
 const UpcomingNEWSPage: React.FC = () => {
   const newsList = useAppSelector(state => state.news.entities);

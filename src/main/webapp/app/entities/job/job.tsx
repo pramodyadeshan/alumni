@@ -148,6 +148,7 @@ export const Job = () => {
                   Expire Date <FontAwesomeIcon icon={getSortIconByFieldName('expireDate')} />
                 </th>
                 <th className="py-2 px-3">Job Apply Method</th>
+                <th className="py-2 px-3">Status</th>
                 <th className="py-2 px-3 text-center space-x-2 w-60">Action</th>
               </tr>
             </thead>
@@ -164,6 +165,7 @@ export const Job = () => {
                   <td className="py-2 px-3">{job.location}</td>
                   <td className="py-2 px-3">{job.salaryDetails}</td>
                   <td className="py-2 px-3">{job.jobDescription}</td>
+                  <td className="py-2 px-3">{job.status}</td>
                   <td className="py-2 px-3">
                     {new Date(job.expireDate)
                       .toLocaleString('en-US', {

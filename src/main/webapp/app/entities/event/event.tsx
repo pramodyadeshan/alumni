@@ -8,8 +8,8 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.cons
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import {createEntity, getEntities, partialUpdateEntity, updateEntity} from './event.reducer';
-import {updateUser} from "app/modules/administration/user-management/user-management.reducer";
+import { createEntity, getEntities, partialUpdateEntity, updateEntity } from './event.reducer';
+import { updateUser } from 'app/modules/administration/user-management/user-management.reducer';
 
 export const Event = () => {
   const dispatch = useAppDispatch();
@@ -99,7 +99,6 @@ export const Event = () => {
     );
   };
 
-
   return (
     <div className="min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url(${bgImg})` }}>
       <div className="container pt-2">
@@ -108,100 +107,79 @@ export const Event = () => {
           {eventList && eventList.length > 0 ? (
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
               <thead className="bg-purple-100 text-black">
-              <tr>
-                <th className="px-2 py-3 text-center" onClick={sort('id')}>
-                  # <FontAwesomeIcon icon={getSortIconByFieldName('id')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventName')}>
-                  Event Name <FontAwesomeIcon icon={getSortIconByFieldName('eventName')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('dateAndTime')}>
-                  Date And Time <FontAwesomeIcon icon={getSortIconByFieldName('dateAndTime')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('location')}>
-                  Location <FontAwesomeIcon icon={getSortIconByFieldName('location')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventType')}>
-                  Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')}/>
-                </th>
-                <th className="py-2 px-3" onClick={sort('description')}>
-                  Description <FontAwesomeIcon icon={getSortIconByFieldName('description')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('targetAudience')}>
-                  Target Audience <FontAwesomeIcon icon={getSortIconByFieldName('targetAudience')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventCoordinator')}>
-                  Event Coordinator <FontAwesomeIcon icon={getSortIconByFieldName('eventCoordinator')}/>
-                </th>
-                <th className="hand" onClick={sort('status')}>
-                  Status <FontAwesomeIcon icon={getSortIconByFieldName('status')}/>
-                </th>
-                <th className="py-2 px-3 text-center cursor-pointer">Action</th>
-              </tr>
+                <tr>
+                  <th className="px-2 py-3 text-center" onClick={sort('id')}>
+                    # <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventName')}>
+                    Event Name <FontAwesomeIcon icon={getSortIconByFieldName('eventName')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('dateAndTime')}>
+                    Date And Time <FontAwesomeIcon icon={getSortIconByFieldName('dateAndTime')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('location')}>
+                    Location <FontAwesomeIcon icon={getSortIconByFieldName('location')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventType')}>
+                    Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')} />
+                  </th>
+                  <th className="py-2 px-3" onClick={sort('description')}>
+                    Description <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('targetAudience')}>
+                    Target Audience <FontAwesomeIcon icon={getSortIconByFieldName('targetAudience')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventCoordinator')}>
+                    Event Coordinator <FontAwesomeIcon icon={getSortIconByFieldName('eventCoordinator')} />
+                  </th>
+                  <th className="hand" onClick={sort('status')}>
+                    Status <FontAwesomeIcon icon={getSortIconByFieldName('status')} />
+                  </th>
+                  <th className="py-2 px-3 text-center cursor-pointer">Action</th>
+                </tr>
               </thead>
               <tbody>
-              {eventList.map((event, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable" className="even:bg-gray-100">
-                  <td className="px-2 py-3 text-center">
-                    <Button tag={Link} to={`/event/${event.id}`} color="link" size="sm">
-                      {event.id}
-                    </Button>
-                  </td>
-                  <td className="px-2 py-3">{event.eventName}</td>
-                  <td className="px-2 py-3">{event.dateAndTime}</td>
-                  <td className="px-2 py-3">{event.location}</td>
-                  <td className="px-2 py-3">{event.eventType}</td>
-                  <td className="px-2 py-3">{event.description}</td>
-                  <td className="px-2 py-3">{event.targetAudience}</td>
-                  <td className="px-2 py-3">{event.eventCoordinator}</td>
-                  <td>{event.status ? 'Approved' : 'Rejected'}</td>
-                  <td className="py-2 px-3 text-end">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button
-                        tag={Link}
-                        to={`/event/${event.id}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityDetailsButton"
-                        className="text-white"
-                      >
-                        <FontAwesomeIcon icon="eye"/> <span className="d-none d-md-inline">View</span>
+                {eventList.map((event, i) => (
+                  <tr key={`entity-${i}`} data-cy="entityTable" className="even:bg-gray-100">
+                    <td className="px-2 py-3 text-center">
+                      <Button tag={Link} to={`/event/${event.id}`} color="link" size="sm">
+                        {event.id}
                       </Button>
-
-                      {event.status ? (
-                        <Button color="success" onClick={toggleActive(event)} className="text-white py-1 px-1 rounded ml-2">
-                          Approve
+                    </td>
+                    <td className="px-2 py-3">{event.eventName}</td>
+                    <td className="px-2 py-3">{event.dateAndTime}</td>
+                    <td className="px-2 py-3">{event.location}</td>
+                    <td className="px-2 py-3">{event.eventType}</td>
+                    <td className="px-2 py-3">{event.description}</td>
+                    <td className="px-2 py-3">{event.targetAudience}</td>
+                    <td className="px-2 py-3">{event.eventCoordinator}</td>
+                    <td>{event.status ? 'Approved' : 'Rejected'}</td>
+                    <td className="py-2 px-3 text-end">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button
+                          tag={Link}
+                          to={`/event/${event.id}`}
+                          color="primary"
+                          size="sm"
+                          data-cy="entityDetailsButton"
+                          className="text-white"
+                        >
+                          <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
                         </Button>
-                      ) : (
-                        <Button color="danger" onClick={toggleActive(event)} className="text-white py-1 px-1 rounded ml-2">
-                          Reject
-                        </Button>
-                      )}
 
-                      {/*<Button
-                        tag={Link}
-                        color="success"
-                        size="sm"
-                        data-cy="entityEditButton"
-                        disabled={event.status == '1'}
-                        onClick={toggleActive(event, '1')}
-                      >
-                        <FontAwesomeIcon icon="plus"/> <span className="d-none d-md-inline">Approve</span>
-                      </Button>
-
-                      <Button
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                        disabled={event.status == '0'}
-                        onClick={toggleActive(event, '0')}
-                      >
-                        <FontAwesomeIcon icon="ban"/> <span className="d-none d-md-inline">Reject</span>
-                      </Button>*/}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        {event.status ? (
+                          <Button color="success" onClick={toggleActive(event)} className="text-white py-1 px-1 rounded ml-2">
+                            Approve
+                          </Button>
+                        ) : (
+                          <Button color="danger" onClick={toggleActive(event)} className="text-white py-1 px-1 rounded ml-2">
+                            Reject
+                          </Button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           ) : (
