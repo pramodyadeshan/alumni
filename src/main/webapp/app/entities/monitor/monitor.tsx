@@ -22,6 +22,7 @@ interface Event {
 // Define the UpcomingEventPage component
 const UpcomingEventPage: React.FC = () => {
   const eventList = useAppSelector(state => state.event.entities);
+
   const dispatch = useAppDispatch();
   const [selectedEvent, setSelectedEvent] = useState<any>(null);
   const [open, setOpen] = useState(false);
@@ -43,38 +44,39 @@ const UpcomingEventPage: React.FC = () => {
     <div>
       {/* Centered Heading */}
       <div className="flex flex-wrap -mx-4">
-        {eventList.map(event => (
-          <div key={event.id} className="w-full md:w-1/2 xl:w-1/3 p-4">
-            <div className="bg-white rounded-lg shadow-md p-4 border-2 border-green-500">
-              <span className="float-end bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                Event
-              </span>
-              <h2 className="text-2xl font-bold text-gray-900 pb-3 text-capitalize">{event.eventName}</h2>
-              <p className="text-gray-600">{event.description}</p>
-              <p className="text-gray-600">
-                Date:{' '}
-                {new Date(event.dateAndTime)
-                  .toLocaleString('en-US', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true,
-                  })
-                  .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}{' '}
-                | Location: {event.location}
-              </p>
-              <p>{event.status}</p>
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-                onClick={() => handleCardClick(event)}
-              >
-                View Details
-              </button>
+        {eventList
+          .filter(event => event.status === true)
+          .map(event => (
+            <div key={event.id} className="w-full md:w-1/2 xl:w-1/3 p-4">
+              <div className="bg-white rounded-lg shadow-md p-4 border-2 border-green-500">
+                <span className="float-end bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                  Event
+                </span>
+                <h2 className="text-2xl font-bold text-gray-900 pb-3 text-capitalize">{event.eventName}</h2>
+                <p className="text-gray-600">{event.description}</p>
+                <p className="text-gray-600">
+                  <strong>Date : </strong>{' '}
+                  {new Date(event.dateAndTime)
+                    .toLocaleString('en-US', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                    .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}{' '}
+                  | <strong>Location : </strong> {event.location}
+                </p>
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                  onClick={() => handleCardClick(event)}
+                >
+                  View Details
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       {selectedEvent && (
@@ -110,9 +112,6 @@ const UpcomingEventPage: React.FC = () => {
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Coordinator : </strong> {selectedEvent.eventCoordinator}
-            </p>
-            <p className="text-gray-700 mb-2">
-              <strong>Status : </strong> {selectedEvent.status}
             </p>
           </div>
         </Modal>

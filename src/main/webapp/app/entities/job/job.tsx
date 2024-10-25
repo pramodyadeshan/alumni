@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { JhiItemCount, getPaginationState, JhiPagination } from 'react-jhipster';
+import { getPaginationState, JhiItemCount, JhiPagination } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
@@ -9,13 +9,6 @@ import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-u
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntities } from './job.reducer';
-import JobDeleteDialog from 'app/entities/job/job-delete-dialog';
-
-interface JobDeleteDialogProps {
-  isOpen: boolean;
-  jobId: number | null;
-  onClose: () => void;
-}
 
 export const Job = () => {
   const dispatch = useAppDispatch();
@@ -31,9 +24,6 @@ export const Job = () => {
   const jobList = useAppSelector(state => state.job.entities);
   const loading = useAppSelector(state => state.job.loading);
   const totalItems = useAppSelector(state => state.job.totalItems);
-
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const [selectedJobId, setSelectedJobId] = useState(null);
 
   const getAllEntities = () => {
     dispatch(
@@ -100,16 +90,6 @@ export const Job = () => {
     }
   };
 
-  const openDeleteModal = jobId => {
-    setSelectedJobId(jobId);
-    setDeleteModalVisible(true);
-  };
-
-  const closeDeleteModal = () => {
-    setDeleteModalVisible(false);
-    setSelectedJobId(null);
-  };
-
   return (
     <div className="min-h-screen bg-cover bg-center relative pb-16" style={{ backgroundImage: `url(${bgImg})` }}>
       <div className="container pt-2">
@@ -148,7 +128,6 @@ export const Job = () => {
                   Expire Date <FontAwesomeIcon icon={getSortIconByFieldName('expireDate')} />
                 </th>
                 <th className="py-2 px-3">Job Apply Method</th>
-                <th className="py-2 px-3">Status</th>
                 <th className="py-2 px-3 text-center space-x-2 w-60">Action</th>
               </tr>
             </thead>
@@ -165,7 +144,6 @@ export const Job = () => {
                   <td className="py-2 px-3">{job.location}</td>
                   <td className="py-2 px-3">{job.salaryDetails}</td>
                   <td className="py-2 px-3">{job.jobDescription}</td>
-                  <td className="py-2 px-3">{job.status}</td>
                   <td className="py-2 px-3">
                     {new Date(job.expireDate)
                       .toLocaleString('en-US', {
@@ -193,22 +171,19 @@ export const Job = () => {
                     >
                       Edit
                     </Link>
-
-                    <button
-                      onClick={() => openDeleteModal(job.id)}
+                    <Button
+                      onClick={() =>
+                        (window.location.href = `/job/${job.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                      }
                       className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600 ml-4 mt-2 text-sm sm:text-base sm:py-2 sm:px-4"
                     >
                       Delete
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-
-          {deleteModalVisible && selectedJobId && (
-            <JobDeleteDialog isOpen={deleteModalVisible} jobId={selectedJobId} onClose={closeDeleteModal} />
-          )}
 
           {totalItems ? (
             <div className={jobList && jobList.length > 0 ? '' : 'd-none'}>

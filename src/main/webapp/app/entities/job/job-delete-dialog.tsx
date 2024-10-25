@@ -4,30 +4,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity, deleteEntity } from './job.reducer';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 // Define the props interface
-interface JobDeleteDialogProps {
-  isOpen: boolean;
-  jobId: number | null;
-  onClose: () => void;
-}
 
-export const JobDeleteDialog: React.FC<JobDeleteDialogProps> = ({ isOpen, jobId, onClose }) => {
+export const JobDeleteDialog = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { id } = useParams<'id'>();
+  const pageLocation = useLocation();
+
   const [loadModal, setLoadModal] = useState(false);
 
   useEffect(() => {
-    if (isOpen && jobId !== null) {
-      dispatch(getEntity(jobId));
-      setLoadModal(true);
-    }
-  }, [isOpen, jobId]);
+    dispatch(getEntity(id));
+    setLoadModal(true);
+  }, []);
 
   const jobEntity = useAppSelector(state => state.job.entity);
   const updateSuccess = useAppSelector(state => state.job.updateSuccess);
 
   const handleClose = () => {
-    onClose();
+    navigate('/job' + pageLocation.search);
   };
 
   useEffect(() => {
@@ -38,13 +37,11 @@ export const JobDeleteDialog: React.FC<JobDeleteDialogProps> = ({ isOpen, jobId,
   }, [updateSuccess]);
 
   const confirmDelete = () => {
-    if (jobEntity && jobEntity.id) {
-      dispatch(deleteEntity(jobEntity.id));
-    }
+    dispatch(deleteEntity(jobEntity.id));
   };
 
   return (
-    <Modal isOpen={isOpen} toggle={handleClose}>
+    <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose} data-cy="jobDeleteDialogHeading">
         Confirm delete operation
       </ModalHeader>

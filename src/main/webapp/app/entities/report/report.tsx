@@ -30,7 +30,7 @@ export const ReportPage = () => {
                     id="reportType"
                   >
                     <option value="">Select Report Type</option>
-                    <option value="">User Details</option>
+                    <option value="User">User Details</option>
                     <option value="Event">Event Details</option>
                     <option value="Donation">Donation Details</option>
                     <option value="Job">Job Details</option>
@@ -43,12 +43,12 @@ export const ReportPage = () => {
 
                 <div className="mb-3">
                   <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateTime">
-                    Date & Time
+                    Date
                   </label>
                   <input
                     className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                     id="dateTime"
-                    type="datetime-local"
+                    type="date"
                   />
                 </div>
 
