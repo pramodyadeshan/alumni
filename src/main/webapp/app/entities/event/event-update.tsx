@@ -65,8 +65,8 @@ export const EventUpdate = () => {
     isNew
       ? {}
       : {
-        ...eventEntity,
-      };
+          ...eventEntity,
+        };
 
   return (
     <div className="min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url(${bgImg})` }}>
@@ -184,7 +184,7 @@ export const EventUpdate = () => {
         <div className="flex justify-center mt-4 md:mb-4">
           <button
             className="bg-gray-500 text-white font-bold p-3 rounded-lg hover:bg-gray-600 transition-colors mb-6"
-            onClick={() => navigate('/event/users')} // Redirect to User Events page
+            onClick={() => navigate('/event')} // Redirect to User Events page
           >
             Back to Previous Page
           </button>

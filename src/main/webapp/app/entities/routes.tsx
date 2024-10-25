@@ -9,7 +9,7 @@ import VolunteerOP from 'app/entities/volunteer-op';
 import News from 'app/entities/news';
 import Job from 'app/entities/job';
 import Donation from 'app/entities/donation';
-import Event from 'app/entities/event/event';
+import Event from 'app/entities/event';
 
 export default () => {
   return (

@@ -102,7 +102,7 @@ const DonationList: React.FC = () => {
                 </button>
 
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-green-700 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                   /*onClick={() => {
                     handleDonationSelect(donation);
                     window.open('./payhere.html'); // Opens in a new tab
