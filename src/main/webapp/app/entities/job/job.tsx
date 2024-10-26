@@ -142,7 +142,7 @@ export const Job = () => {
                   <td className="px-2 py-3">{job.jobName}</td>
                   <td className="py-2 px-3">{job.companyName}</td>
                   <td className="py-2 px-3">{job.location}</td>
-                  <td className="py-2 px-3">{job.salaryDetails}</td>
+                  <td className="py-2 px-3">${job.salaryDetails}</td>
                   <td className="py-2 px-3">{job.jobDescription}</td>
                   <td className="py-2 px-3">
                     {new Date(job.expireDate)

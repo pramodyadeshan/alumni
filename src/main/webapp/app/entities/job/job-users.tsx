@@ -77,7 +77,7 @@ export const JobUsers: React.FC<NavbarProps> = ({ username }) => {
               <strong>Location : </strong> {selectedJob.location}
             </p>
             <p className="text-gray-700 mb-2">
-              <strong>Salary : </strong> {selectedJob.salaryDetails}
+              <strong>Salary : </strong> $ {Number(selectedJob.salaryDetails).toFixed(2)}
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Description : </strong> {selectedJob.jobDescription}
@@ -98,14 +98,11 @@ export const JobUsers: React.FC<NavbarProps> = ({ username }) => {
             <p className="text-gray-700 mb-4">
               <strong>Apply Method : </strong> {selectedJob.jobApplyMethod}
             </p>
-              {/*{selectedJob.poster && (
+            {/*{selectedJob.poster && (
                 <img src={`/src/img/${selectedJob.poster}`} alt={`${selectedJob.jobName} Poster`} className="w-full h-48 object-cover mb-4" />
               )}*/}
             <div className="flex justify-between">
-              <a
-                href={`mailto:${selectedJob.email}`}
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-              >
+              <a href={`mailto:${selectedJob.email}`} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
                 Apply
               </a>
             </div>
