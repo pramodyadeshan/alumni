@@ -168,9 +168,8 @@ export const VolunteerOP = () => {
                 ))
               : !loading && (
                   <tr>
-                    <td colSpan={9} className="alert alert-warning text-center">
-                      {' '}
-                      Not found data
+                    <td colSpan={9} className="text-center font-semibold py-4">
+                      No Volunteer Oppertunity found
                     </td>
                   </tr>
                 )}
@@ -197,7 +196,7 @@ export const VolunteerOP = () => {
       )}
 
       <div className="mt-5 text-center">
-        <Link to="/" className="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-500">
+        <Link to="/" className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors">
           Back to Home Page
         </Link>
       </div>

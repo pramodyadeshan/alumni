@@ -113,7 +113,7 @@ export const UserNews: React.FC = () => {
         {/* Back to Home Page button at the bottom */}
         <div className="flex justify-center mt-8 mb-10">
           <button
-            className="bg-gray-500 text-white font-bold p-3 rounded-lg hover:bg-gray-600 transition-colors"
+            className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors"
             onClick={handleBackToHome} // Redirect to home page
           >
             Back to Home Page

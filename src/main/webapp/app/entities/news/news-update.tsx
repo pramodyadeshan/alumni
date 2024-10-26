@@ -223,12 +223,9 @@ export const NewsUpdate = () => {
         </div>
 
         <div className="flex justify-center mt-8 mb-10">
-          <button
-            className="bg-gray-500 text-white font-bold p-2 sm:p-3 rounded-lg hover:bg-gray-600 transition-colors"
-            onClick={() => (window.location.href = '/')}
-          >
-            Back to Home
-          </button>
+          <Link to="/" className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors">
+            Back to Home Page
+          </Link>
         </div>
       </div>
     </div>
