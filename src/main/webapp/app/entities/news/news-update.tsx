@@ -84,7 +84,19 @@ export const NewsUpdate = () => {
               <div key={index} className="bg-white shadow-lg rounded-lg p-4 sm:p-6 hover:shadow-xl transition-shadow duration-300">
                 <h2 className="text-xl font-semibold mb-2">{news.title}</h2>
                 <p className="text-sm text-gray-600 mb-1">By: {news.authorName}</p>
-                <p className="text-sm text-gray-600 mb-1">Published Date: {new Date(news.publishDate).toLocaleDateString()}</p>
+                <p className="text-sm text-gray-600 mb-1">
+                  Published Date:{' '}
+                  {new Date(news.publishDate)
+                    .toLocaleString('en-US', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                    .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                </p>
                 <p className="text-sm text-gray-600 mb-1">Group: {news.group}</p>
                 <p className="text-sm text-gray-600 mb-1">Cover Area: {news.coverArea}</p>
                 <p className="text-sm text-gray-600 mb-4">
@@ -139,7 +151,10 @@ export const NewsUpdate = () => {
                     name="authorName"
                     data-cy="authorName"
                     type="text"
-                    validate={{ required: { value: true, message: 'This field is required' } }}
+                    validate={{
+                      required: { value: true, message: 'This field is required' },
+                      pattern: { value: /^[A-Za-z\s.]+$/, message: 'Name can only contain letters, spaces, and pull stop.' },
+                    }}
                   />
                   <ValidatedField
                     label="Title"

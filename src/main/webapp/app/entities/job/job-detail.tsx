@@ -79,7 +79,7 @@ export const JobDetail = () => {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <b>Salary Details: &nbsp;</b>$ {jobEntity.salaryDetails}
+                <b>Salary Details: &nbsp;</b> ${jobEntity.salaryDetails}
               </li>
               <li className="flex items-center space-x-3">
                 <svg
@@ -94,7 +94,7 @@ export const JobDetail = () => {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <b>Job Description: &nbsp;</b> {jobEntity.jobDescription}
+                <b>Description: &nbsp;</b> {jobEntity.jobDescription}
               </li>
               <li className="flex items-center space-x-3">
                 <svg

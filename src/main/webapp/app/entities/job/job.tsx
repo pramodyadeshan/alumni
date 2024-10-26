@@ -132,54 +132,62 @@ export const Job = () => {
               </tr>
             </thead>
             <tbody>
-              {jobList.map((job, i) => (
-                <tr key={job.id} className="even:bg-gray-100">
-                  <td className="px-2 py-3 text-center">
-                    <Button tag={Link} to={`/job/${job.id}`} color="link" size="sm">
-                      {job.id}
-                    </Button>
-                  </td>
-                  <td className="px-2 py-3">{job.jobName}</td>
-                  <td className="py-2 px-3">{job.companyName}</td>
-                  <td className="py-2 px-3">{job.location}</td>
-                  <td className="py-2 px-3">${job.salaryDetails}</td>
-                  <td className="py-2 px-3">{job.jobDescription}</td>
-                  <td className="py-2 px-3">
-                    {new Date(job.expireDate)
-                      .toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true,
-                      })
-                      .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                  </td>
-                  <td className="py-2 px-3">{job.jobApplyMethod}</td>
-                  <td className="py-2 px-3 text-center space-x-2">
-                    <Link
-                      to={`/job/${job.id}`}
-                      className="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 ml-2 text-sm sm:text-base sm:py-2 sm:px-4"
-                    >
-                      View
-                    </Link>
+              {jobList && jobList.length > 0
+                ? jobList.map((job, i) => (
+                    <tr key={job.id} className="even:bg-gray-100">
+                      <td className="px-2 py-3 text-center">
+                        <Button tag={Link} to={`/job/${job.id}`} color="link" size="sm">
+                          {job.id}
+                        </Button>
+                      </td>
+                      <td className="px-2 py-3">{job.jobName}</td>
+                      <td className="py-2 px-3">{job.companyName}</td>
+                      <td className="py-2 px-3">{job.location}</td>
+                      <td className="py-2 px-3">${job.salaryDetails}</td>
+                      <td className="py-2 px-3">{job.jobDescription}</td>
+                      <td className="py-2 px-3">
+                        {new Date(job.expireDate)
+                          .toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true,
+                          })
+                          .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                      </td>
+                      <td className="py-2 px-3">{job.jobApplyMethod}</td>
+                      <td className="py-2 px-3 text-center space-x-2">
+                        <Link
+                          to={`/job/${job.id}`}
+                          className="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600 ml-2 text-sm sm:text-base sm:py-2 sm:px-4"
+                        >
+                          View
+                        </Link>
 
-                    <Link
-                      to={`/job/${job.id}/edit`}
-                      className="border border-blue-500 text-blue-500 py-1 px-2 rounded hover:bg-blue-500 hover:text-white text-sm sm:text-base sm:py-2 sm:px-4"
-                    >
-                      Edit
-                    </Link>
-                    <Link
-                      to={`/job/${job.id}/delete`}
-                      className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600 ml-4 mt-2 text-sm sm:text-base sm:py-2 sm:px-4"
-                    >
-                      Delete
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+                        <Link
+                          to={`/job/${job.id}/edit`}
+                          className="border border-blue-500 text-blue-500 py-1 px-2 rounded hover:bg-blue-500 hover:text-white text-sm sm:text-base sm:py-2 sm:px-4"
+                        >
+                          Edit
+                        </Link>
+                        <Link
+                          to={`/job/${job.id}/delete`}
+                          className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600 ml-4 mt-2 text-sm sm:text-base sm:py-2 sm:px-4"
+                        >
+                          Delete
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                : !loading && (
+                    <tr>
+                      <td colSpan={9} className="text-center font-semibold py-4">
+                        No Job found
+                      </td>
+                    </tr>
+                  )}
             </tbody>
           </table>
 
