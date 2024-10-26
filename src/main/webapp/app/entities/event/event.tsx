@@ -168,11 +168,27 @@ export const Event = () => {
                         </Button>
 
                         {event.status ? (
-                          <Button color="success" onClick={toggleActive(event)} className="text-white py-1 px-1 rounded ml-2">
+                          <Button
+                            color="success"
+                            onClick={() => {
+                              if (window.confirm('Are you sure you want to reject this event?')) {
+                                toggleActive(event)();
+                              }
+                            }}
+                            className="text-white py-1 px-1 rounded ml-2"
+                          >
                             Approve
                           </Button>
                         ) : (
-                          <Button color="danger" onClick={toggleActive(event)} className="text-white py-1 px-1 rounded ml-2">
+                          <Button
+                            color="danger"
+                            onClick={() => {
+                              if (window.confirm('Are you sure you want to approve this event?')) {
+                                toggleActive(event)();
+                              }
+                            }}
+                            className="text-white py-1 px-1 rounded ml-2"
+                          >
                             Reject
                           </Button>
                         )}
