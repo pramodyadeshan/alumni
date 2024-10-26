@@ -85,6 +85,13 @@ export const DonationUpdate = () => {
                   pattern: { value: /^[A-Za-z\s]+$/, message: 'Name can only contain letters and spaces' },
                 }}
               />
+              <ValidatedField
+                id="donation-dateAndTime"
+                name="dateAndTime"
+                data-cy="dateAndTime"
+                type="hidden"
+                value={new Date().toISOString().slice(0, 16)}
+              />
 
               <ValidatedField
                 label="Contact Details"
