@@ -96,6 +96,7 @@ export const EventUpdate = () => {
                 type="text"
                 class="w-full px-3 py-1 border rounded-lg text-gray-700"
                 validate={{ required: { value: true, message: 'This field is required' } }}
+                placeholder="Enter Event Name"
               />
               <ValidatedField
                 label="Date And Time"
@@ -114,6 +115,7 @@ export const EventUpdate = () => {
                 type="text"
                 class="w-full px-3 py-1 border rounded-lg text-gray-700"
                 validate={{ required: { value: true, message: 'This field is required' } }}
+                placeholder="Enter Location"
               />
               <ValidatedField
                 label="Event Type"
@@ -136,9 +138,10 @@ export const EventUpdate = () => {
                 id="event-description"
                 name="description"
                 data-cy="description"
-                type="text"
+                type="textarea"
                 class="w-full px-3 py-1 border rounded-lg text-gray-700"
                 validate={{ required: { value: true, message: 'This field is required' } }}
+                placeholder="Enter Description"
               />
 
               <ValidatedField
@@ -164,7 +167,11 @@ export const EventUpdate = () => {
                 data-cy="eventCoordinator"
                 type="text"
                 class="w-full px-3 py-1 border rounded-lg text-gray-700"
-                validate={{ required: { value: true, message: 'This field is required' } }}
+                validate={{
+                  required: { value: true, message: 'This field is required' },
+                  pattern: { value: /^[A-Za-z\s.]+$/, message: 'Name can only contain letters, spaces, and pull stop.' },
+                }}
+                placeholder="Enter Event Coordinator"
               />
 
               <Button

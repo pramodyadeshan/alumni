@@ -17,7 +17,7 @@ export const UserEvent = () => {
   const navigate = useNavigate();
 
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id'), pageLocation.search),
+    overridePaginationStateWithQueryParams(getPaginationState(pageLocation, ITEMS_PER_PAGE, 'id,desc'), pageLocation.search),
   );
 
   const [bgImg, setbgImg] = useState('./content/images/alu3.jpg');
@@ -33,7 +33,7 @@ export const UserEvent = () => {
       getEntities({
         page: paginationState.activePage - 1,
         size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
+        sort: 'id,desc',
       }),
     );
   };
@@ -118,40 +118,40 @@ export const UserEvent = () => {
           {eventList && eventList.length > 0 ? (
             <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
               <thead className="bg-purple-100 text-black">
-              <tr>
-                <th className="px-2 py-3 text-center cursor-pointer" onClick={sort('id')}>
-                  # <FontAwesomeIcon icon={getSortIconByFieldName('id')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventName')}>
-                  Event Name <FontAwesomeIcon icon={getSortIconByFieldName('eventName')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('dateAndTime')}>
-                  Date And Time <FontAwesomeIcon icon={getSortIconByFieldName('dateAndTime')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('location')}>
-                  Location <FontAwesomeIcon icon={getSortIconByFieldName('location')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventType')}>
-                  Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('description')}>
-                  Description <FontAwesomeIcon icon={getSortIconByFieldName('description')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('targetAudience')}>
-                  Target Audience <FontAwesomeIcon icon={getSortIconByFieldName('targetAudience')}/>
-                </th>
-                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventCoordinator')}>
-                  Event Coordinator <FontAwesomeIcon icon={getSortIconByFieldName('eventCoordinator')}/>
-                </th>
-                <th className="hand" onClick={sort('status')}>
-                  Status <FontAwesomeIcon icon={getSortIconByFieldName('status')}/>
-                </th>
-                <th className="py-2 px-3 text-center">Action</th>
-              </tr>
+                <tr>
+                  <th className="px-2 py-3 text-center cursor-pointer" onClick={sort('id')}>
+                    # <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventName')}>
+                    Event Name <FontAwesomeIcon icon={getSortIconByFieldName('eventName')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('dateAndTime')}>
+                    Date And Time <FontAwesomeIcon icon={getSortIconByFieldName('dateAndTime')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('location')}>
+                    Location <FontAwesomeIcon icon={getSortIconByFieldName('location')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventType')}>
+                    Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('description')}>
+                    Description <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('targetAudience')}>
+                    Target Audience <FontAwesomeIcon icon={getSortIconByFieldName('targetAudience')} />
+                  </th>
+                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventCoordinator')}>
+                    Event Coordinator <FontAwesomeIcon icon={getSortIconByFieldName('eventCoordinator')} />
+                  </th>
+                  <th className="hand" onClick={sort('status')}>
+                    Status <FontAwesomeIcon icon={getSortIconByFieldName('status')} />
+                  </th>
+                  <th className="py-2 px-3 text-center">Action</th>
+                </tr>
               </thead>
               <tbody>
-              {eventList.map((event, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable" className="even:bg-gray-100">
+                {eventList.map((event, i) => (
+                  <tr key={`entity-${i}`} data-cy="entityTable" className="even:bg-gray-100">
                     <td className="px-2 py-3 text-center">
                       <Button tag={Link} to={`/event/${event.id}`} color="link" size="sm">
                         {event.id}
@@ -175,8 +175,14 @@ export const UserEvent = () => {
                     <td className="px-2 py-3">{event.description}</td>
                     <td className="px-2 py-3">{event.targetAudience}</td>
                     <td className="px-2 py-3">{event.eventCoordinator}</td>
-                    <td className="px-2 py-3">{event.status == '1' ? <label className="bg-success text-white p-1 w-full text-center">Approved</label> : <label className="bg-danger text-white p-1 w-full text-center">Rejected</label>}</td>
-                  <td className="py-2 px-3 text-end">
+                    <td className="px-2 py-3">
+                      {event.status == '1' ? (
+                        <label className="bg-success text-white p-1 w-full text-center">Approved</label>
+                      ) : (
+                        <label className="bg-danger text-white p-1 w-full text-center">Rejected</label>
+                      )}
+                    </td>
+                    <td className="py-2 px-3 text-end">
                       <div className="btn-group flex-btn-group-container">
                         <Button
                           tag={Link}
