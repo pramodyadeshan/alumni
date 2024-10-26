@@ -6,9 +6,9 @@ import { getEntities as getDonationEntities } from 'app/entities/donation/donati
 import { getEntities as getJobEntities } from 'app/entities/job/job.reducer';
 import { getEntities as getNewsEntities } from 'app/entities/news/news.reducer';
 import { getEntities as getVoEntities } from 'app/entities/volunteer-op/volunteer-op.reducer';
-//import { getUsersAsAdmin } from 'app/modules/administration/user-management/user-management.reducer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { getUsersAsAdmin } from 'app/modules/administration/user-management/user-management.reducer';
 
 export const ReportPage = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +20,7 @@ export const ReportPage = () => {
   const [date, setDate] = useState('');
   const [showReport, setShowReport] = useState(false);
   const [reportData, setReportData] = useState([]);
+  const [showDateFields, setShowDateFields] = useState(true);
 
   const handleSelect = e => {
     e.preventDefault();
@@ -32,7 +33,7 @@ export const ReportPage = () => {
   const jobEntities = useAppSelector(state => state.job.entities);
   const newsEntities = useAppSelector(state => state.news.entities);
   const voEntities = useAppSelector(state => state.volunteerOP.entities);
-  /*const userEntities = useAppSelector(state => state.user.entities || []);*/
+  const userEntities = useAppSelector(state => state.userManagement.users);
 
   useEffect(() => {
     dispatch(getEventEntities({}));
@@ -58,10 +59,13 @@ export const ReportPage = () => {
     dispatch(getVoEntities({}));
   }, [dispatch]);
 
-  /* // Fetch user entities
-  useEffect(() => {
-    dispatch(getUsersAsAdmin({}));
-  }, [dispatch]);*/
+  const account = useAppSelector(state => state.authentication.account);
+
+  if (account && account.authorities.includes('ROLE_ADMIN')) {
+    useEffect(() => {
+      dispatch(getUsersAsAdmin({}));
+    }, [dispatch]);
+  }
 
   const fetchReportData = (type, selectedDate) => {
     if (type === 'event') {
@@ -159,13 +163,11 @@ export const ReportPage = () => {
 
       // Set the filtered report data
       setReportData(filteredData);
-    } /*else
-    if (type === 'user') {
-      const filteredData = userEntities.filter(item => {
-        return item.activated == 1;
-      });
-      setReportData(filteredData);
-    }*/
+    } else if (type === 'user') {
+      if (account && account.authorities.includes('ROLE_ADMIN')) {
+        setReportData(userEntities);
+      }
+    }
   };
 
   const exportToPDF = () => {
@@ -267,11 +269,18 @@ export const ReportPage = () => {
                         className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                         id="reportType"
                         value={reportType}
-                        onChange={e => setReportType(e.target.value)}
+                        onChange={e => {
+                          setReportType(e.target.value);
+                          if (e.target.value === 'user') {
+                            setShowDateFields(false); // hides date fields
+                          } else {
+                            setShowDateFields(true); // shows date fields
+                          }
+                        }}
                         required={true}
                       >
                         <option value="">Select Report Type</option>
-                        {/*<option value="user">User Details</option>*/}
+                        {account && account.authorities.includes('ROLE_ADMIN') && <option value="user">User Details</option>}
                         <option value="event">Event Details</option>
                         <option value="donation">Donation Details</option>
                         <option value="job">Job Details</option>
@@ -279,20 +288,21 @@ export const ReportPage = () => {
                         <option value="vo">Volunteer Opportunities</option>
                       </select>
                     </div>
-
-                    <div className="mb-3">
-                      <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateTime">
-                        Date
-                      </label>
-                      <input
-                        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        id="dateTime"
-                        type="date"
-                        value={date}
-                        onChange={e => setDate(e.target.value)}
-                        required={true}
-                      />
-                    </div>
+                    {showDateFields && (
+                      <div className="mb-3">
+                        <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="dateTime">
+                          Date
+                        </label>
+                        <input
+                          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                          id="dateTime"
+                          type="date"
+                          value={date}
+                          onChange={e => setDate(e.target.value)}
+                          required={true}
+                        />
+                      </div>
+                    )}
 
                     <button
                       type="submit"
@@ -318,13 +328,14 @@ export const ReportPage = () => {
               <div className="bg-white shadow-md rounded-lg p-6 mx-auto" style={{ width: '100%' }}>
                 <div id="exportReport">
                   <h3 className="text-2xl font-semibold mb-4 text-capitalize">{reportType} Report Results</h3>
-                  <p className="mb-2">
-                    Report Type: <strong className="text-capitalize px-3">{reportType}</strong>
-                  </p>
-                  <p className="mb-4">
-                    From Current Date: <strong className="px-3">{new Date().toISOString().split('T')[0]}</strong> To Selected Date:{' '}
-                    <strong className="px-3">{date}</strong>
-                  </p>
+
+                  {showDateFields && (
+                    <p className="mb-4">
+                      From Current Date: <strong className="px-3">{new Date().toISOString().split('T')[0]}</strong> To Selected Date:{' '}
+                      <strong className="px-3">{date}</strong>
+                    </p>
+                  )}
+
                   <table className="min-w-full divide-y divide-gray-200 text-xl">
                     <thead className="bg-gray-50">
                       {reportType === 'event' ? (
@@ -471,7 +482,7 @@ export const ReportPage = () => {
                       {reportType === 'event' ? (
                         reportData.length === 0 ? (
                           <tr>
-                            <td colSpan={7} className="text-center">
+                            <td colSpan={7} className="text-center text-sm">
                               {' '}
                               No event data found
                             </td>
@@ -503,7 +514,7 @@ export const ReportPage = () => {
                       ) : reportType === 'donation' ? (
                         reportData.length === 0 ? (
                           <tr>
-                            <td colSpan={7} className="text-center">
+                            <td colSpan={7} className="text-center text-sm">
                               {' '}
                               No donation data found
                             </td>
@@ -538,7 +549,7 @@ export const ReportPage = () => {
                       ) : reportType === 'job' ? (
                         reportData.length === 0 ? (
                           <tr>
-                            <td colSpan={7} className="text-center">
+                            <td colSpan={7} className="text-center text-sm">
                               {' '}
                               No job data found
                             </td>
@@ -573,7 +584,7 @@ export const ReportPage = () => {
                       ) : reportType === 'news' ? (
                         reportData.length === 0 ? (
                           <tr>
-                            <td colSpan={7} className="text-center">
+                            <td colSpan={7} className="text-center text-sm">
                               {' '}
                               No news data found
                             </td>
@@ -615,7 +626,7 @@ export const ReportPage = () => {
                       ) : reportType === 'vo' ? (
                         reportData.length === 0 ? (
                           <tr>
-                            <td colSpan={7} className="text-center">
+                            <td colSpan={7} className="text-center text-sm">
                               {' '}
                               No volunteer oppertunity data found
                             </td>
@@ -649,7 +660,7 @@ export const ReportPage = () => {
                       ) : reportType === 'user' ? (
                         reportData.length === 0 ? (
                           <tr>
-                            <td colSpan={7} className="text-center">
+                            <td colSpan={7} className="text-center text-sm">
                               {' '}
                               No user data found
                             </td>
@@ -684,7 +695,11 @@ export const ReportPage = () => {
                       Export to CSV
                     </button>*/}
 
-                    <button className="bg-green-600 text-white py-2 rounded-lg hover:bg-green-600 px-2" onClick={exportToPDF}>
+                    <button
+                      className="bg-green-600 text-white py-2 rounded-lg hover:bg-green-600 px-2 disabled:opacity-50"
+                      disabled={reportData.length === 0}
+                      onClick={exportToPDF}
+                    >
                       Export as PDF
                     </button>
                   </div>
