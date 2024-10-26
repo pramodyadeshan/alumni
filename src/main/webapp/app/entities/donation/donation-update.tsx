@@ -82,7 +82,7 @@ export const DonationUpdate = () => {
                 class="w-full px-3 py-1 border rounded-lg text-gray-700"
                 validate={{
                   required: { value: true, message: 'This field is required' },
-                  pattern: { value: /^[A-Za-z\s]+$/, message: 'Name can only contain letters and spaces' },
+                  pattern: { value: /^[A-Za-z\s.]+$/, message: 'Name can only contain letters, spaces, and pull stop.' },
                 }}
               />
               <ValidatedField

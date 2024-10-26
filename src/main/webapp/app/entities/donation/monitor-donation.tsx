@@ -50,7 +50,7 @@ const UpcomingDonationPage: React.FC = () => {
               </p>
 
               <p className="text-gray-600">
-                <strong>Amount : </strong> $ {Number(donation.amount).toFixed(2)}
+                <strong>Amount : </strong> ${Number(donation.amount).toFixed(2)}
               </p>
 
               <p className="text-gray-600">
@@ -87,7 +87,7 @@ const UpcomingDonationPage: React.FC = () => {
               <strong>Billing Address : </strong> {selectedDonation.billingAddress}
             </p>
             <p className="text-gray-700 mb-2">
-              <strong>Amount : </strong> $ {Number(selectedDonation.amount).toFixed(2)}
+              <strong>Amount : </strong> ${Number(selectedDonation.amount).toFixed(2)}
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Donation Type : </strong> {selectedDonation.donationType}

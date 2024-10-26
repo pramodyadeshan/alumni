@@ -77,7 +77,7 @@ export const JobUsers: React.FC<NavbarProps> = ({ username }) => {
               <strong>Location : </strong> {selectedJob.location}
             </p>
             <p className="text-gray-700 mb-2">
-              <strong>Salary : </strong> $ {Number(selectedJob.salaryDetails).toFixed(2)}
+              <strong>Salary : </strong> ${Number(selectedJob.salaryDetails).toFixed(2)}
             </p>
             <p className="text-gray-700 mb-2">
               <strong>Description : </strong> {selectedJob.jobDescription}
