@@ -57,11 +57,11 @@ export const DonationUpdate = () => {
   const defaultValues = () =>
     isNew
       ? {
-        // Default values for a new entity can be added here
-      }
+          // Default values for a new entity can be added here
+        }
       : {
-        ...donationEntity,
-      };
+          ...donationEntity,
+        };
 
   return (
     <div className="min-h-screen bg-cover bg-center relative" style={{ backgroundImage: `url(${bgImg})` }}>
@@ -78,8 +78,12 @@ export const DonationUpdate = () => {
                 name="donationName"
                 data-cy="donationName"
                 type="text"
+                placeholder="Enter Donation Name"
                 class="w-full px-3 py-1 border rounded-lg text-gray-700"
-                validate={{ required: { value: true, message: 'This field is required' } }}
+                validate={{
+                  required: { value: true, message: 'This field is required' },
+                  pattern: { value: /^[A-Za-z\s]+$/, message: 'Name can only contain letters and spaces' },
+                }}
               />
 
               <ValidatedField
@@ -89,6 +93,7 @@ export const DonationUpdate = () => {
                 name="contactDetails"
                 data-cy="contactDetails"
                 type="text"
+                placeholder="Enter Contact Details"
                 validate={{ required: { value: true, message: 'This field is required' } }}
               />
 
@@ -99,16 +104,18 @@ export const DonationUpdate = () => {
                 name="billingAddress"
                 data-cy="billingAddress"
                 type="text"
+                placeholder="Enter Billing Address"
                 validate={{ required: { value: true, message: 'This field is required' } }}
               />
 
               <ValidatedField
-                label="Donation Amount (LKR)"
+                label="Donation Amount($)"
                 class="w-full px-3 py-2 border rounded-lg text-gray-700"
                 id="donation-amount"
                 name="amount"
                 data-cy="amount"
                 type="number"
+                placeholder="Enter Donation Amount"
                 validate={{ required: { value: true, message: 'This field is required' } }}
               />
 
@@ -119,6 +126,7 @@ export const DonationUpdate = () => {
                 name="email"
                 data-cy="email"
                 type="email"
+                placeholder="Enter Email Address"
                 validate={{ required: { value: true, message: 'This field is required' } }}
               />
 
@@ -129,6 +137,7 @@ export const DonationUpdate = () => {
                 name="description"
                 data-cy="description"
                 type="textarea"
+                placeholder="Enter Description"
                 validate={{ required: { value: true, message: 'This field is required' } }}
               />
 

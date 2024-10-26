@@ -45,7 +45,7 @@ export const DonationDetail = () => {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <b>Amount: &nbsp;</b> $ {Number(donationEntity.amount).toFixed(2)}
+                <b>Amount: &nbsp;</b> ${Number(donationEntity.amount).toFixed(2)}
               </li>
               <li className="flex items-center space-x-3">
                 <svg
