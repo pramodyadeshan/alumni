@@ -115,114 +115,118 @@ export const UserEvent = () => {
 
         <h1 className="text-center text-3xl font-bold mb-5 mt-2 text-amber-300">List of Event</h1>
         <div className="table-responsive">
-          {eventList && eventList.length > 0 ? (
-            <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-              <thead className="bg-purple-100 text-black">
-                <tr>
-                  <th className="px-2 py-3 text-center cursor-pointer" onClick={sort('id')}>
-                    # <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventName')}>
-                    Event Name <FontAwesomeIcon icon={getSortIconByFieldName('eventName')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('dateAndTime')}>
-                    Date And Time <FontAwesomeIcon icon={getSortIconByFieldName('dateAndTime')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('location')}>
-                    Location <FontAwesomeIcon icon={getSortIconByFieldName('location')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventType')}>
-                    Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('description')}>
-                    Description <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('targetAudience')}>
-                    Target Audience <FontAwesomeIcon icon={getSortIconByFieldName('targetAudience')} />
-                  </th>
-                  <th className="py-2 px-3 cursor-pointer" onClick={sort('eventCoordinator')}>
-                    Event Coordinator <FontAwesomeIcon icon={getSortIconByFieldName('eventCoordinator')} />
-                  </th>
-                  <th className="hand" onClick={sort('status')}>
-                    Status <FontAwesomeIcon icon={getSortIconByFieldName('status')} />
-                  </th>
-                  <th className="py-2 px-3 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {eventList.map((event, i) => (
-                  <tr key={`entity-${i}`} data-cy="entityTable" className="even:bg-gray-100">
-                    <td className="px-2 py-3 text-center">
-                      <Button tag={Link} to={`/event/${event.id}`} color="link" size="sm">
-                        {event.id}
-                      </Button>
-                    </td>
-                    <td className="px-2 py-3">{event.eventName}</td>
-                    <td className="px-2 py-3">
-                      {new Date(event.dateAndTime)
-                        .toLocaleString('en-US', {
-                          year: 'numeric',
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          hour12: true,
-                        })
-                        .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
-                    </td>
-                    <td className="px-2 py-3">{event.location}</td>
-                    <td className="px-2 py-3">{event.eventType}</td>
-                    <td className="px-2 py-3">{event.description}</td>
-                    <td className="px-2 py-3">{event.targetAudience}</td>
-                    <td className="px-2 py-3">{event.eventCoordinator}</td>
-                    <td className="px-2 py-3">
-                      {event.status == '1' ? (
-                        <label className="bg-success text-white p-1 w-full text-center">Approved</label>
-                      ) : (
-                        <label className="bg-danger text-white p-1 w-full text-center">Rejected</label>
-                      )}
-                    </td>
-                    <td className="py-2 px-3 text-end">
-                      <div className="btn-group flex-btn-group-container">
-                        <Button
-                          tag={Link}
-                          to={`/event/${event.id}`}
-                          color="info"
-                          size="sm"
-                          data-cy="entityDetailsButton"
-                          className="text-white"
-                        >
-                          <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+            <thead className="bg-purple-100 text-black">
+              <tr>
+                <th className="px-2 py-3 text-center cursor-pointer" onClick={sort('id')}>
+                  # <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventName')}>
+                  Event Name <FontAwesomeIcon icon={getSortIconByFieldName('eventName')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('dateAndTime')}>
+                  Date And Time <FontAwesomeIcon icon={getSortIconByFieldName('dateAndTime')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('location')}>
+                  Location <FontAwesomeIcon icon={getSortIconByFieldName('location')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventType')}>
+                  Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('description')}>
+                  Description <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('targetAudience')}>
+                  Target Audience <FontAwesomeIcon icon={getSortIconByFieldName('targetAudience')} />
+                </th>
+                <th className="py-2 px-3 cursor-pointer" onClick={sort('eventCoordinator')}>
+                  Event Coordinator <FontAwesomeIcon icon={getSortIconByFieldName('eventCoordinator')} />
+                </th>
+                <th className="hand" onClick={sort('status')}>
+                  Status <FontAwesomeIcon icon={getSortIconByFieldName('status')} />
+                </th>
+                <th className="py-2 px-3 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventList && eventList.length > 0
+                ? eventList.map((event, i) => (
+                    <tr key={`entity-${i}`} data-cy="entityTable" className="even:bg-gray-100">
+                      <td className="px-2 py-3 text-center">
+                        <Button tag={Link} to={`/event/${event.id}`} color="link" size="sm">
+                          {event.id}
                         </Button>
+                      </td>
+                      <td className="px-2 py-3">{event.eventName}</td>
+                      <td className="px-2 py-3">
+                        {new Date(event.dateAndTime)
+                          .toLocaleString('en-US', {
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: true,
+                          })
+                          .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
+                      </td>
+                      <td className="px-2 py-3">{event.location}</td>
+                      <td className="px-2 py-3">{event.eventType}</td>
+                      <td className="px-2 py-3">{event.description}</td>
+                      <td className="px-2 py-3">{event.targetAudience}</td>
+                      <td className="px-2 py-3">{event.eventCoordinator}</td>
+                      <td className="px-2 py-3">
+                        {event.status == '1' ? (
+                          <label className="bg-success text-white p-1 w-full text-center">Approved</label>
+                        ) : (
+                          <label className="bg-danger text-white p-1 w-full text-center">Rejected</label>
+                        )}
+                      </td>
+                      <td className="py-2 px-3 text-end">
+                        <div className="btn-group flex-btn-group-container">
+                          <Button
+                            tag={Link}
+                            to={`/event/${event.id}`}
+                            color="info"
+                            size="sm"
+                            data-cy="entityDetailsButton"
+                            className="text-white"
+                          >
+                            <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+                          </Button>
 
-                        <Button
-                          tag={Link}
-                          to={`/event/${event.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                          color="primary"
-                          size="sm"
-                          data-cy="entityEditButton"
-                        >
-                          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
-                        </Button>
-                        <Button
-                          onClick={() =>
-                            (window.location.href = `/event/${event.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                          }
-                          color="danger"
-                          size="sm"
-                          data-cy="entityDeleteButton"
-                        >
-                          <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            !loading && <div className="alert alert-warning">No Events found</div>
-          )}
+                          <Button
+                            tag={Link}
+                            to={`/event/${event.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                            color="primary"
+                            size="sm"
+                            data-cy="entityEditButton"
+                          >
+                            <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
+                          </Button>
+                          <Button
+                            onClick={() =>
+                              (window.location.href = `/event/${event.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                            }
+                            color="danger"
+                            size="sm"
+                            data-cy="entityDeleteButton"
+                          >
+                            <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                : !loading && (
+                    <tr>
+                      <td colSpan={10} className="text-center font-semibold py-4">
+                        No Events found
+                      </td>
+                    </tr>
+                  )}
+            </tbody>
+          </table>
         </div>
         {totalItems ? (
           <div className={eventList && eventList.length > 0 ? '' : 'd-none'}>
