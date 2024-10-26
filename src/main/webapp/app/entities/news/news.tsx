@@ -104,81 +104,85 @@ export const News = () => {
         </div>
       </h2>
       <div className="table-responsive">
-        {newsList && newsList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
-                <th className="hand" onClick={sort('authorName')}>
-                  Author Name <FontAwesomeIcon icon={getSortIconByFieldName('authorName')} />
-                </th>
-                <th className="hand" onClick={sort('title')}>
-                  Title <FontAwesomeIcon icon={getSortIconByFieldName('title')} />
-                </th>
-                <th className="hand" onClick={sort('publishDate')}>
-                  Publish Date <FontAwesomeIcon icon={getSortIconByFieldName('publishDate')} />
-                </th>
-                <th className="hand" onClick={sort('coverArea')}>
-                  Cover Area <FontAwesomeIcon icon={getSortIconByFieldName('coverArea')} />
-                </th>
-                <th className="hand" onClick={sort('group')}>
-                  Group <FontAwesomeIcon icon={getSortIconByFieldName('group')} />
-                </th>
-                <th className="hand" onClick={sort('expireDate')}>
-                  Expire Date <FontAwesomeIcon icon={getSortIconByFieldName('expireDate')} />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {newsList.map((news, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/news/${news.id}`} color="link" size="sm">
-                      {news.id}
-                    </Button>
-                  </td>
-                  <td>{news.authorName}</td>
-                  <td>{news.title}</td>
-                  <td>{news.publishDate}</td>
-                  <td>{news.coverArea}</td>
-                  <td>{news.group}</td>
-                  <td>{news.expireDate}</td>
-                  <td className="text-end">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/news/${news.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                        <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th className="hand" onClick={sort('id')}>
+                ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+              </th>
+              <th className="hand" onClick={sort('authorName')}>
+                Author Name <FontAwesomeIcon icon={getSortIconByFieldName('authorName')} />
+              </th>
+              <th className="hand" onClick={sort('title')}>
+                Title <FontAwesomeIcon icon={getSortIconByFieldName('title')} />
+              </th>
+              <th className="hand" onClick={sort('publishDate')}>
+                Publish Date <FontAwesomeIcon icon={getSortIconByFieldName('publishDate')} />
+              </th>
+              <th className="hand" onClick={sort('coverArea')}>
+                Cover Area <FontAwesomeIcon icon={getSortIconByFieldName('coverArea')} />
+              </th>
+              <th className="hand" onClick={sort('group')}>
+                Group <FontAwesomeIcon icon={getSortIconByFieldName('group')} />
+              </th>
+              <th className="hand" onClick={sort('expireDate')}>
+                Expire Date <FontAwesomeIcon icon={getSortIconByFieldName('expireDate')} />
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {newsList && newsList.length > 0
+              ? newsList.map((news, i) => (
+                  <tr key={`entity-${i}`} data-cy="entityTable">
+                    <td>
+                      <Button tag={Link} to={`/news/${news.id}`} color="link" size="sm">
+                        {news.id}
                       </Button>
-                      <Button
-                        tag={Link}
-                        to={`/news/${news.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          (window.location.href = `/news/${news.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                        }
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
-                        <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          !loading && <div className="alert alert-warning">No News found</div>
-        )}
+                    </td>
+                    <td>{news.authorName}</td>
+                    <td>{news.title}</td>
+                    <td>{news.publishDate}</td>
+                    <td>{news.coverArea}</td>
+                    <td>{news.group}</td>
+                    <td>{news.expireDate}</td>
+                    <td className="text-end">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`/news/${news.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                          <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
+                        </Button>
+                        <Button
+                          tag={Link}
+                          to={`/news/${news.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                          color="primary"
+                          size="sm"
+                          data-cy="entityEditButton"
+                        >
+                          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
+                        </Button>
+                        <Button
+                          onClick={() =>
+                            (window.location.href = `/news/${news.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                          }
+                          color="danger"
+                          size="sm"
+                          data-cy="entityDeleteButton"
+                        >
+                          <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              : !loading && (
+                  <tr>
+                    <td colSpan={10} className="text-center font-semibold py-4">
+                      No News found
+                    </td>
+                  </tr>
+                )}
+          </tbody>
+        </Table>
       </div>
       {totalItems ? (
         <div className={newsList && newsList.length > 0 ? '' : 'd-none'}>

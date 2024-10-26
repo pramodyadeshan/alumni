@@ -113,6 +113,7 @@ export const JobUpdate = () => {
                   type="text"
                   validate={{ required: { value: true, message: 'This field is required' } }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter Job Name"
                 />
                 <ValidatedField
                   label="Company Name"
@@ -122,6 +123,7 @@ export const JobUpdate = () => {
                   type="text"
                   validate={{ required: { value: true, message: 'This field is required' } }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter Company Name"
                 />
                 <ValidatedField
                   label="Location"
@@ -131,6 +133,7 @@ export const JobUpdate = () => {
                   type="text"
                   validate={{ required: { value: true, message: 'This field is required' } }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter Location"
                 />
                 <ValidatedField
                   label="Salary Details"
@@ -140,6 +143,7 @@ export const JobUpdate = () => {
                   type="number"
                   validate={{ required: { value: true, message: 'This field is required' } }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter Salary Details"
                 />
                 <ValidatedField
                   label="Email Address"
@@ -152,6 +156,7 @@ export const JobUpdate = () => {
                     pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email format' },
                   }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter Email"
                 />
                 {/*<ValidatedField*/}
                 {/*  label="Email Address"*/}
@@ -170,6 +175,7 @@ export const JobUpdate = () => {
                   type="textarea"
                   validate={{ required: { value: true, message: 'This field is required' } }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  placeholder="Enter Job Description"
                 />
                 <ValidatedField
                   label="Expire Date"
@@ -195,29 +201,15 @@ export const JobUpdate = () => {
                   <option value="DirectContact">Direct Contact</option>
                 </ValidatedField>
 
-                <ValidatedField
+                {/*<ValidatedField
                   label="Upload Job Poster"
                   id="job-jobPoster"
                   name="fileUpload"
                   data-cy="fileUpload"
                   type="file"
-                  /*validate={{ required: { value: true, message: 'This field is required' } }}*/
+                  validate={{ required: { value: true, message: 'This field is required' } }}
                   className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
-                />
-
-                {/*<div className="mb-4">*/}
-                {/*  <label htmlFor="job-jobPoster" className="block text-sm font-medium text-gray-700">*/}
-                {/*    Upload Job Poster*/}
-                {/*  </label>*/}
-                {/*  <input*/}
-                {/*    type="file"*/}
-                {/*    id="job-jobPoster"*/}
-                {/*    name="fileUpload"*/}
-                {/*    data-cy="fileUpload"*/}
-                {/*    onChange={handleFileChange}*/}
-                {/*    className="w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"*/}
-                {/*  />*/}
-                {/*</div>*/}
+                />*/}
 
                 <Button
                   color="primary"

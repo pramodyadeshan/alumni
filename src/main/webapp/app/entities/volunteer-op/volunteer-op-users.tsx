@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
-import { Translate, TextFormat, getPaginationState, JhiPagination, JhiItemCount } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { getPaginationState } from 'react-jhipster';
+import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
@@ -108,7 +105,17 @@ export const VolunteerOPUsers = () => {
               >
                 <h3 className="text-xl font-bold text-gray-800 text-capitalize">{volunteerOP.volunteerName}</h3>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Date & Time:</span> {new Date(volunteerOP.dateTime).toLocaleString()}
+                  <span className="font-semibold">Date & Time:</span>{' '}
+                  {new Date(volunteerOP.dateAndTime)
+                    .toLocaleString('en-US', {
+                      year: 'numeric',
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })
+                    .replace(/(\d{2})\/(\d{2})\/(\d{4}),/, '$3-$1-$2')}
                 </p>
                 <p className="mt-2 text-gray-600">
                   <span className="font-semibold">Location:</span> {volunteerOP.location}
@@ -120,10 +127,10 @@ export const VolunteerOPUsers = () => {
                   <span className="font-semibold">Description:</span> {volunteerOP.description}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Members:</span> {volunteerOP.members}
+                  <span className="font-semibold">Members:</span> {volunteerOP.member <= 9 ? '0' + volunteerOP.member : volunteerOP.member}
                 </p>
                 <p className="mt-2 text-gray-600">
-                  <span className="font-semibold">Coordinator:</span> {volunteerOP.coordinator}
+                  <span className="font-semibold">Coordinator:</span> {volunteerOP.volunteerOpCoordinator}
                 </p>
               </div>
             ))}
@@ -133,12 +140,9 @@ export const VolunteerOPUsers = () => {
         )}
       </div>
       <div className="flex justify-center mt-10 mb-20">
-        <button
-          onClick={handleBackHome}
-          className="bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-600 transition duration-300"
-        >
+        <Link to="/" className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors">
           Back to Home Page
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -55,10 +55,31 @@ export const UserNews: React.FC = () => {
               </button>
             </div>
           </div>
+        ) : // News Grid view when no specific news item is selected
+        newsList.length === 0 ? (
+          <div className="flex justify-center items-center text-center">
+            <div
+              className="flex items-center justify-center p-4 mb-4 text-md text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+              role="alert"
+            >
+              <svg
+                className="flex-shrink-0 inline w-4 h-4 mr-3"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+              </svg>
+              <span className="sr-only">Info</span>
+              <div>
+                <span className="font-medium">News alert!</span> Sorry, no data found.
+              </div>
+            </div>
+          </div>
         ) : (
-          // News Grid view when no specific news item is selected
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {newsList.map((news, index) => (
+          newsList.map((news, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div
                 key={index}
                 className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
@@ -85,14 +106,14 @@ export const UserNews: React.FC = () => {
                   </video>
                 )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))
         )}
 
         {/* Back to Home Page button at the bottom */}
         <div className="flex justify-center mt-8 mb-10">
           <button
-            className="bg-gray-500 text-white font-bold p-3 rounded-lg hover:bg-gray-600 transition-colors"
+            className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors"
             onClick={handleBackToHome} // Redirect to home page
           >
             Back to Home Page

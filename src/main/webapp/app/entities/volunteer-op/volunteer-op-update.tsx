@@ -90,7 +90,10 @@ export const VolunteerOPUpdate = () => {
               className="w-full rounded-md -mt-6"
               type="text"
               placeholder="Enter Volunteer Name"
-              validate={{ required: { value: true, message: 'This field is required' } }}
+              validate={{
+                required: { value: true, message: 'This field is required' },
+                pattern: { value: /^[A-Za-z\s.]+$/, message: 'Name can only contain letters, spaces, and pull stop.' },
+              }}
             />
 
             <ValidatedField
@@ -156,7 +159,10 @@ export const VolunteerOPUpdate = () => {
               className="w-full rounded-md -mt-6"
               type="text"
               placeholder="Enter Coordinator Name"
-              validate={{ required: { value: true, message: 'This field is required' } }}
+              validate={{
+                required: { value: true, message: 'This field is required' },
+                pattern: { value: /^[A-Za-z\s.]+$/, message: 'Name can only contain letters, spaces, and pull stop.' },
+              }}
             />
 
             <div className="col-span-2 flex justify-center mt-2 space-x-4">

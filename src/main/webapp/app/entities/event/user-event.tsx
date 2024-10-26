@@ -248,12 +248,9 @@ export const UserEvent = () => {
         )}
       </div>
       <div className="flex justify-center mt-4 mb-4">
-        <button
-          className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors"
-          onClick={() => navigate('/')} // Redirect to home page
-        >
+        <Link to="/" className="bg-gray-500 text-white p-3 rounded-lg font-bold hover:bg-gray-600 transition-colors">
           Back to Home Page
-        </button>
+        </Link>
       </div>
     </div>
   );
