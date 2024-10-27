@@ -78,8 +78,8 @@ export const UserNews: React.FC = () => {
             </div>
           </div>
         ) : (
-          newsList.map((news, index) => (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {newsList.map((news, index) => (
               <div
                 key={index}
                 className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300 cursor-pointer"
@@ -106,8 +106,8 @@ export const UserNews: React.FC = () => {
                   </video>
                 )}
               </div>
-            </div>
-          ))
+            ))}
+          </div>
         )}
 
         {/* Back to Home Page button at the bottom */}
